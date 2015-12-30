@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package cl.services.ws;
 
 import cl.model.dao.ProductoDAO;
@@ -12,25 +17,15 @@ import javax.jws.WebParam;
  *
  * @author clopez
  */
-@WebService(serviceName = "MercaSuperWS")
-public class MercaSuperWS {
+@WebService(serviceName = "WebServiceSEGUNDO")
+public class WebServiceSEGUNDO {
 
-    /**
-     * Web service operation
-     * @param codigo
-     * @return 
-     */
-//    @WebMethod(operationName = "ConsultarProducto")
-//    public String ConsultarProducto(@WebParam(name = "codigo") int codigo) {
-//        ProductoDAO productoDAO = new ProductoDAO();
-//        return productoDAO.consultarProducto(codigo);
-//    }
-    
-    @WebMethod(operationName = "ConsultarProducto")
+   @WebMethod(operationName = "ConsultarProducto")
     public List<Productos> ConsultarProducto(@WebParam(name = "codigo") int codigo) {
         ProductoDAO productoDAO = new ProductoDAO();
         ArrayList arr2;
         arr2=(ArrayList)productoDAO.consultarProducto(codigo);
         return arr2;
     }
+
 }

@@ -22,4 +22,14 @@ public class ProductoDAO {
         t.commit();
         return arr;
     }
+    
+//    public String consultarProducto2(int codigo) {
+//        Session sf = HibernateUtil.getSessionFactory().getCurrentSession();
+//        Transaction t = sf.beginTransaction();
+//        ArrayList arr = new ArrayList();
+//        String txt = sf.createQuery("from Productos where codigo=" + codigo).list();
+//        //arr = (ArrayList) sf.createQuery("from Productos where codigo=" + codigo).list();
+//        t.commit();
+//        return arr.get(0).toS;
+//    }
 }

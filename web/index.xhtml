@@ -6,26 +6,41 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Inicio</title>
+        <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
     </h:head>
-    
-    <h:body>  
-      
-        <p:spinner />
-        <p:outputLabel for="effect" value="Effect:" />
-        <p:calendar id="effect"  effect="fold" />
-        
-        
-        <h:panelGrid columns="1" cellpadding="5">
-    <p:commandButton value="Basic" type="button" onclick="PF('dlg1').show();" />
- 
-    <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();" />
- 
-    <p:commandButton value="Effects" type="button" onclick="PF('dlg3').show();" /> 
-</h:panelGrid>
-        <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">
-            <h:outputText value="This dialog has nice effects." />
-        </p:dialog>
-          
+
+    <h:body style="background-color: #E5FFAD;">  
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+        <h:form id="frmLogin">
+
+            <p:panel id="basic" header="Ingreso de Usuario" style="margin-bottom:10px;width: 390px;margin-left: auto;margin-right: auto;margin-top: 10%;">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Usuario:" />
+                    <p:inputText id="username" value="#{loginBean.username}" required="true" label="username" />
+
+                    <h:outputLabel for="password" value="Contraseña:" />
+                    <p:password id="password" value="#{loginBean.password}" required="true" label="password" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Ingresar" update="growl" actionListener="#{loginBean.login}"
+                                         oncomplete="handleLoginRequest(xhr, status, args)" />
+                    </f:facet>  
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) {
+                    PF('dlg').jq.effect("shake", {times: 5}, 100);
+                }
+                else {
+                    PF('dlg').hide();
+                    $('#loginLink').fadeOut();
+                }
+            }
+        </script>
+
     </h:body>  
 </html>
 

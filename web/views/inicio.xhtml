@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="msgs" showDetail="true" />
+                <h:form id="formDataTable">
+                    
+                    <p:dataTable id="basicDT" var="usu" value="#{usuarioBean.usuarios}">
+                        <f:facet name="header">
+                            Basic
+                        </f:facet>
+                        <p:column headerText="Id">
+                            <h:outputText value="#{usu.id}" />
+                        </p:column>
+                        <p:column headerText="Year">
+                            <h:outputText value="#{usu.usuario}" />
+                        </p:column>
+                        <p:column headerText="Brand">
+                            <h:outputText value="#{usu.email}" />
+                        </p:column>
+                        <p:column headerText="Color">
+                            <h:outputText value="#{usu.rol.id}" />
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton update=":formActualizar" oncomplete="PF('dialogUsuario').show()" icon="ui-icon-search" title="Actualizar">
+                                <f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.selectedUsuario}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                
+                
+                <h:form id="formActualizar">
+
+                    <p:dialog header="Modificar Datos" widgetVar="dialogUsuario" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="carDetail" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty usuarioBean.selectedUsuario}" columnClasses="label,value">
+
+
+                                <h:outputText value="Usuario:" />
+                                <h:outputText value="#{usuarioBean.selectedUsuario.id}" />
+
+                                <h:outputText value="Rol:" />
+                                <h:outputText value="#{usuarioBean.selectedUsuario.rol}" />
+
+                                <h:outputText value="Email:" />
+                                <h:outputText value="#{usuarioBean.selectedUsuario.email}" style="color:#{dtSelectionView.selectedCar.color}"/>
+
+                                <h:outputText value="Estado:" />
+                                <h:outputText value="$#{usuarioBean.selectedUsuario.estado}" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+
+                    <p:dialog header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="200">
+                        <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                            <ui:repeat value="#{dtSelectionView.selectedCars}" var="car">
+                                <h:outputText value="#{car.id} - #{car.brand}" style="display:block"/>
+                            </ui:repeat>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>
